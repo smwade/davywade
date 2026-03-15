@@ -1,0 +1,21 @@
+---
+interface Props {
+  src: string;
+  id: string;
+  width: number;
+  height: number;
+}
+
+const { src, id, width, height } = Astro.props;
+---
+
+<div class="mb-4 break-inside-avoid">
+  <img
+    src={src}
+    alt={id}
+    width={width}
+    height={height}
+    loading="lazy"
+    class="w-full rounded-lg shadow-2xl transition-all duration-500 hover:scale-[1.02] hover:brightness-110"
+  />
+</div>

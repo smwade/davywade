@@ -1,0 +1,15 @@
+---
+import PhotoCard from './PhotoCard.astro';
+import photos from '../data/photos.json';
+---
+
+<div class="columns-1 sm:columns-2 lg:columns-3 gap-4 px-4 sm:px-6 lg:px-8 py-12 max-w-[1600px] mx-auto">
+  {photos.map((photo) => (
+    <PhotoCard 
+      id={photo.id}
+      src={photo.src}
+      width={photo.width}
+      height={photo.height}
+    />
+  ))}
+</div>

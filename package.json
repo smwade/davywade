@@ -1,0 +1,27 @@
+{
+  "name": "majestic-matter",
+  "type": "module",
+  "version": "0.0.1",
+  "engines": {
+    "node": ">=22.12.0"
+  },
+  "scripts": {
+    "dev": "astro dev --host",
+    "prebuild": "tsx scripts/convert-images.ts",
+    "build": "astro build",
+    "preview": "astro preview",
+    "astro": "astro",
+    "convert-images": "tsx scripts/convert-images.ts"
+  },
+  "dependencies": {
+    "@tailwindcss/vite": "^4.2.1",
+    "astro": "^6.0.4",
+    "sharp": "^0.34.5",
+    "tailwindcss": "^4.2.1"
+  },
+  "devDependencies": {
+    "@types/node": "^25.5.0",
+    "heic-convert": "^2.1.0",
+    "tsx": "^4.21.0"
+  }
+}
