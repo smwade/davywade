@@ -3,20 +3,26 @@ set -euo pipefail
 
 PLIST_NAME="com.davywade.photo-sync.plist"
 PLIST_DEST="$HOME/Library/LaunchAgents/$PLIST_NAME"
+DOMAIN="gui/$(id -u)"
+SERVICE="$DOMAIN/com.davywade.photo-sync"
 
 echo "=== DavyWade Photo Sync — Uninstall ==="
 echo ""
 
-if [[ -f "$PLIST_DEST" ]]; then
-    echo "Unloading launchd job..."
-    launchctl unload "$PLIST_DEST" 2>/dev/null || true
+if launchctl print "$SERVICE" &>/dev/null; then
+    echo "Removing launchd job..."
+    launchctl bootout "$SERVICE" 2>/dev/null || true
+    echo "✓ launchd job removed from launchctl."
+else
+    echo "No launchd job is currently loaded."
+fi
 
+if [[ -f "$PLIST_DEST" ]]; then
     echo "Removing plist from ~/Library/LaunchAgents/..."
     rm "$PLIST_DEST"
-
-    echo "✓ launchd job removed."
+    echo "✓ plist file removed."
 else
-    echo "No launchd job found at $PLIST_DEST. Nothing to remove."
+    echo "No plist file found at $PLIST_DEST."
 fi
 
 echo ""

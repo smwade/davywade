@@ -5,27 +5,29 @@ SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
 PLIST_NAME="com.davywade.photo-sync.plist"
 PLIST_SRC="$SCRIPT_DIR/$PLIST_NAME"
 PLIST_DEST="$HOME/Library/LaunchAgents/$PLIST_NAME"
+DOMAIN="gui/$(id -u)"
+SERVICE="$DOMAIN/com.davywade.photo-sync"
 
 echo "=== DavyWade Photo Sync — Install ==="
 echo ""
 
-# Install launchd job
-if launchctl list | grep -q "com.davywade.photo-sync"; then
-    echo "Unloading existing job..."
-    launchctl unload "$PLIST_DEST" 2>/dev/null || true
+# Remove existing job if loaded
+if launchctl print "$SERVICE" &>/dev/null; then
+    echo "Removing existing job..."
+    launchctl bootout "$SERVICE" 2>/dev/null || true
 fi
 
 echo "Copying plist to ~/Library/LaunchAgents/..."
 cp "$PLIST_SRC" "$PLIST_DEST"
 
 echo "Loading launchd job..."
-launchctl load "$PLIST_DEST"
+launchctl bootstrap "$DOMAIN" "$PLIST_DEST"
 
 # Verify
-if launchctl list | grep -q "com.davywade.photo-sync"; then
+if launchctl print "$SERVICE" &>/dev/null; then
     echo "✓ launchd job is running."
 else
-    echo "✗ launchd job failed to load. Check: launchctl list | grep davywade"
+    echo "✗ launchd job failed to load. Check: launchctl print $SERVICE"
     exit 1
 fi
 
