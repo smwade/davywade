@@ -14,10 +14,19 @@ import '../styles/global.css';
 		<meta name="viewport" content="width=device-width" />
 		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 		<meta name="generator" content={Astro.generator} />
+		<meta name="robots" content="noindex, nofollow, noimageindex" />
+		<meta name="googlebot" content="noindex, nofollow" />
 		<title>{title}</title>
 	</head>
 	<body class="bg-black text-white min-h-screen">
 		<slot />
+		<script is:inline>
+			document.addEventListener('contextmenu', (e) => {
+				if (e.target.tagName === 'IMG') {
+					e.preventDefault();
+				}
+			}, false);
+		</script>
 	</body>
 </html>
 

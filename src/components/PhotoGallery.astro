@@ -3,7 +3,7 @@ import PhotoCard from './PhotoCard.astro';
 import photos from '../data/photos.json';
 ---
 
-<div class="columns-1 sm:columns-2 lg:columns-3 gap-4 px-4 sm:px-6 lg:px-8 py-12 max-w-[1600px] mx-auto">
+<div class="columns-1 sm:columns-2 lg:columns-3 gap-2 px-2 pt-2 pb-12 w-full max-w-none">
   {photos.map((photo) => (
     <PhotoCard 
       id={photo.id}
