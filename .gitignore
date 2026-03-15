@@ -22,3 +22,7 @@ pnpm-debug.log*
 
 # jetbrains setting folder
 .idea/
+
+# photo sync automation
+automation/.photo-hashes
+automation/logs/*.log

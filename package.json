@@ -11,7 +11,8 @@
     "build": "astro build",
     "preview": "astro preview",
     "astro": "astro",
-    "convert-images": "tsx scripts/convert-images.ts"
+    "convert-images": "tsx scripts/convert-images.ts",
+    "sync": "shortcuts run 'DavyWade Photo Sync'"
   },
   "dependencies": {
     "@tailwindcss/vite": "^4.2.1",
