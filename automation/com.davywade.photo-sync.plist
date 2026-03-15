@@ -7,9 +7,8 @@
 
     <key>ProgramArguments</key>
     <array>
-        <string>/usr/bin/shortcuts</string>
-        <string>run</string>
-        <string>DavyWade Photo Sync</string>
+        <string>/bin/bash</string>
+        <string>/Users/seanwade/projects/davywade.com/automation/sync-and-deploy.sh</string>
     </array>
 
     <key>StartInterval</key>

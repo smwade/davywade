@@ -12,7 +12,7 @@
     "preview": "astro preview",
     "astro": "astro",
     "convert-images": "tsx scripts/convert-images.ts",
-    "sync": "shortcuts run 'DavyWade Photo Sync'"
+    "sync": "./automation/sync-and-deploy.sh"
   },
   "dependencies": {
     "@tailwindcss/vite": "^4.2.1",

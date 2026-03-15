@@ -7,18 +7,24 @@ const INPUT_DIR = './photos';
 const OUTPUT_DIR = './public/images';
 const MANIFEST_PATH = './src/data/photos.json';
 
+const SUPPORTED_EXTENSIONS = ['.heic', '.jpg', '.jpeg', '.png'];
+
 async function main() {
+  // Clean output dir so removed photos don't persist
+  await fs.rm(OUTPUT_DIR, { recursive: true, force: true });
   await fs.mkdir(OUTPUT_DIR, { recursive: true });
   await fs.mkdir(path.dirname(MANIFEST_PATH), { recursive: true });
 
   const files = await fs.readdir(INPUT_DIR);
-  const heicFiles = files.filter(f => f.toLowerCase().endsWith('.heic'));
+  const imageFiles = files.filter(f =>
+    SUPPORTED_EXTENSIONS.includes(path.extname(f).toLowerCase())
+  );
 
-  console.log(`Found ${heicFiles.length} HEIC files.`);
+  console.log(`Found ${imageFiles.length} image files.`);
 
   const photoManifest = [];
 
-  for (const file of heicFiles) {
+  for (const file of imageFiles) {
     const inputPath = path.join(INPUT_DIR, file);
     const baseName = path.parse(file).name;
     const outputPath = path.join(OUTPUT_DIR, `${baseName}.webp`);
@@ -26,17 +32,21 @@ async function main() {
     console.log(`Processing ${file}...`);
 
     try {
-      const inputBuffer = await fs.readFile(inputPath);
-      
-      // Convert HEIC to JPEG buffer first (as sharp might not support HEIC)
-      const jpegBuffer = await convert({
-        buffer: inputBuffer,
-        format: 'JPEG',
-        quality: 1
-      });
+      const ext = path.extname(file).toLowerCase();
+      let imageBuffer: Buffer;
 
-      // Use sharp to convert to optimized WebP
-      const info = await sharp(jpegBuffer as Buffer)
+      if (ext === '.heic') {
+        const inputBuffer = await fs.readFile(inputPath);
+        imageBuffer = await convert({
+          buffer: inputBuffer,
+          format: 'JPEG',
+          quality: 1
+        }) as Buffer;
+      } else {
+        imageBuffer = await fs.readFile(inputPath);
+      }
+
+      const info = await sharp(imageBuffer)
         .webp({ quality: 85 })
         .toFile(outputPath);
 

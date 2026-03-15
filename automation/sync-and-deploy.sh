@@ -25,6 +25,21 @@ log "=== Sync started ==="
 # Ensure photos directory exists
 mkdir -p "$PHOTOS_DIR"
 
+# Clear photos dir and export from Photos.app album
+rm -rf "$PHOTOS_DIR"/* 2>/dev/null || true
+log "Exporting photos from 'DavyWade.com' album..."
+osascript -e "
+tell application \"Photos\"
+    set targetAlbum to album \"DavyWade.com\"
+    set photoList to every media item of targetAlbum
+    export photoList to POSIX file \"$PHOTOS_DIR/\" with using originals
+    return (count of photoList) as text
+end tell
+" 2>&1 | tee -a "$LOG_FILE"
+
+# Remove .mov files (Live Photo videos)
+find "$PHOTOS_DIR" -name '*.mov' -delete 2>/dev/null || true
+
 # Compute hash of all files in photos/
 compute_hash() {
     if [[ -d "$PHOTOS_DIR" ]] && compgen -G "$PHOTOS_DIR/*" > /dev/null 2>&1; then
