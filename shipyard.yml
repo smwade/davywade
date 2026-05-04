@@ -7,5 +7,5 @@ public:
   web:
     domains:
       - davywade.com
-      - davywade.thewadefam.com
+      - www.davywade.com
     health: /
