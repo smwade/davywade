@@ -1,5 +1,40 @@
 [
   {
+    "id": "180A0480-2",
+    "src": "/images/180A0480-2.webp",
+    "width": 3600,
+    "height": 2400,
+    "aspectRatio": 1.5
+  },
+  {
+    "id": "IMG_2918",
+    "src": "/images/IMG_2918.webp",
+    "width": 3024,
+    "height": 4032,
+    "aspectRatio": 0.75
+  },
+  {
+    "id": "IMG_3295",
+    "src": "/images/IMG_3295.webp",
+    "width": 3024,
+    "height": 4032,
+    "aspectRatio": 0.75
+  },
+  {
+    "id": "IMG_3310",
+    "src": "/images/IMG_3310.webp",
+    "width": 3024,
+    "height": 4032,
+    "aspectRatio": 0.75
+  },
+  {
+    "id": "IMG_3448",
+    "src": "/images/IMG_3448.webp",
+    "width": 3024,
+    "height": 4032,
+    "aspectRatio": 0.75
+  },
+  {
     "id": "IMG_3488",
     "src": "/images/IMG_3488.webp",
     "width": 1536,
@@ -11,6 +46,27 @@
     "src": "/images/IMG_3618.webp",
     "width": 1536,
     "height": 2048,
+    "aspectRatio": 0.75
+  },
+  {
+    "id": "IMG_3701",
+    "src": "/images/IMG_3701.webp",
+    "width": 3024,
+    "height": 4032,
+    "aspectRatio": 0.75
+  },
+  {
+    "id": "IMG_4021",
+    "src": "/images/IMG_4021.webp",
+    "width": 3024,
+    "height": 4032,
+    "aspectRatio": 0.75
+  },
+  {
+    "id": "IMG_4046",
+    "src": "/images/IMG_4046.webp",
+    "width": 3024,
+    "height": 4032,
     "aspectRatio": 0.75
   },
   {

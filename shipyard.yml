@@ -1,0 +1,11 @@
+version: 1
+app: davywade
+repo: https://github.com/smwade/davywade.git
+branch: main
+compose: docker-compose.yml
+public:
+  web:
+    domains:
+      - davywade.com
+      - davywade.thewadefam.com
+    health: /
