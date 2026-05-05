@@ -1,0 +1,30 @@
+name: Deploy with Shipyard
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Trigger Shipyard deploy
+        env:
+          APP: "davywade"
+          REVISION: ${{ github.sha }}
+          SECRET: ${{ secrets.SHIPYARD_WEBHOOK_SECRET }}
+          URL: "https://deploy.davywade.com/deploy"
+        run: |
+          if [ -z "$SECRET" ]; then
+            echo "Missing GitHub secret: SHIPYARD_WEBHOOK_SECRET" >&2
+            exit 1
+          fi
+
+          body=$(jq -nc --arg app "$APP" --arg revision "$REVISION" '{app:$app, revision:$revision}')
+          sig=$(printf '%s' "$body" | openssl dgst -sha256 -hmac "$SECRET" -hex | sed 's/^.* //')
+
+          curl -fsS "$URL" \
+            -H "Content-Type: application/json" \
+            -H "X-Shipyard-Signature: sha256=$sig" \
+            --data "$body"
